@@ -1,6 +1,6 @@
-from sqlalchemy import craete_engine, MetaData
+from sqlalchemy import create_engine, MetaData
 
-engine = create_engine("mysql+pymysql://root@localhost:3306")
+engine = create_engine(f"mysql+mysqlconnector://root:12345678@localhost:3306/Student")
 
 meta = MetaData()
 connection = engine.connect()
