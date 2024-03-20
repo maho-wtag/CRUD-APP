@@ -1,5 +1,6 @@
-python3
 fastapi
-mysql==8.3.0
-virtualenv --system-site-packages venv
+mysql
+virtualenv
 mysql-connector-python
+uvicorn==0.15.0
+pydantic

@@ -1,9 +1,7 @@
 FROM python:3.12
-WORKDIR /code
+WORKDIR /app
+COPY ./requirements.txt .
+RUN pip3 install --upgrade -r /app/requirements.txt
 COPY . .
-
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-
-COPY /CRUD /code/app
-
-CMD ["uvicorn", "index:app", "--reload"]
+EXPOSE 80
+CMD ["uvicorn", "index:app", "--host", "0.0.0.0", "--port", "8000"]
