@@ -1,32 +1,38 @@
 version: '3.8'
 
 services:
-  fastapi:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "8000:8000"
     volumes:
       - .:/app
     environment:
       - PYTHONPATH=/app
     depends_on:
       - mysql
+    networks:
+      - fastapi-app-network
 
   mysql:
     image: mysql:latest
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 12345678
       MYSQL_DATABASE: Student
       MYSQL_PASSWORD: 12345678
     ports:
-      - "3306:3306"
+      - "3307:3307"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - fastapi-app-network
 
 volumes:
   mysql_data:
 
-  
+  # crates new network
+networks:
+  fastapi-app-network:
+    driver: bridge
