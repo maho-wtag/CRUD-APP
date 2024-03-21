@@ -10,6 +10,7 @@ def api_call():
 
 connection = mysql.connector.connect(
         host="localhost",
+        port="3306",
         user="root",
         database="Student",
         password="12345678"

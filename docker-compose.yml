@@ -2,33 +2,39 @@ version: '3.8'
 
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - 8000:8000
+    restart: on-failure
+    volumes:
+      - .:/app
     environment:
       - PYTHONPATH=/app
+    command: sh -c "uvicorn index:app --reload --port=8000 --host=0.0.0.0"
     depends_on:
       - mysql
     networks:
       - fastapi-app-network
 
   mysql:
-    image: mysql:latest
+    image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: 12345678
       MYSQL_DATABASE: Student
       MYSQL_PASSWORD: 12345678
     ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
+      - "3307:3306"
+    # volumes:
+    #   - mysql_data:/var/lib/mysql
     networks:
       - fastapi-app-network
 
-volumes:
-  mysql_data:
+# volumes:
+#   mysql_data:
 
-# crates new network
+# # crates new network
 networks:
   fastapi-app-network:
     driver: bridge
