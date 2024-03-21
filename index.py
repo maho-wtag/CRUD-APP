@@ -3,6 +3,11 @@ import mysql
 import mysql.connector 
 
 app = FastAPI()
+@app.get("/arafat")
+def api_call():
+    return {"hello", "world"}
+
+
 connection = mysql.connector.connect(
         host="localhost",
         user="root",

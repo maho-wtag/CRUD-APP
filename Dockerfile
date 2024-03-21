@@ -3,5 +3,6 @@ WORKDIR /app
 COPY ./requirements.txt .
 RUN pip3 install --upgrade -r /app/requirements.txt
 COPY . .
-EXPOSE 80
-CMD ["uvicorn", "index:app", "--host", "0.0.0.0", "--port", "8000"]
+EXPOSE 8000
+EXPOSE 3306
+CMD ["uvicorn", "index:app", "--host", "127.0.0.1", "--port", "8000"]
