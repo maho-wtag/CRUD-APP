@@ -1,16 +1,30 @@
 from fastapi import FastAPI
-import mysql
 import mysql.connector 
 
+
 app = FastAPI()
+
 @app.get("/arafat")
-def api_call():
-    return {"hello", "world"}
+def hello():
+    return {"msg": "Hello"}
 
+# Example API endpoint
 
+# async def read_root():
+#     async with await get_mysql_connection() as connection:
+#         async with connection.cursor() as cursor:
+#             try:
+#                 await cursor.execute("SELECT 1")
+#                 result = await cursor.fetchone()
+#                 if result:
+#                     return {"message": "Connection successful!"}
+#                 else:
+#                     raise HTTPException(status_code=500, detail="Database connection failed")
+#             except Exception as e:
+#                 raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 connection = mysql.connector.connect(
-        host="localhost",
-        port="3306",
+        host='db',
+        # port="3306",?
         user="root",
         database="Student",
         password="12345678"
@@ -18,7 +32,17 @@ connection = mysql.connector.connect(
     
 cursor = connection.cursor()
 database = "Student"
-
+@app.post("/create")
+def createttable():
+    cursor.execute("""
+            CREATE TABLE IF NOT EXISTS studentInfo (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                roll VARCHAR(255) NOT NULL,
+                class VARCHAR(255) NOT NULL
+            )
+        """)
 from pydantic import BaseModel
 
 class Student(BaseModel):
@@ -29,29 +53,7 @@ class Student(BaseModel):
     Class: str
 
 
-@app.get("/")
-def databaseConnection():
-    
-    try:
-        # Check if the database exists
-        cursor.execute("USE {}".format(database))
-    except mysql.connector.Error as err:
-        if err.errno == mysql.connector.errorcode.ER_BAD_DB_ERROR:
-            # Database doesn't exist, so create it
-            cursor.execute("CREATE DATABASE {}".format(database))
-            return {
-                    "Response: ": "'Database {} created successfully.'.format(database)"
-                }
-        else:
-            # Something went wrong while checking the database
-            return {
-                "Response: ": "err"
-            }
-    else:
-        # Database already exists
-        return {
-            "Response: ": "Database {} already exists.".format(database)
-        }
+
     
 @app.get("/read")
 def read_data():
