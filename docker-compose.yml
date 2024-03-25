@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8000:8000
-    restart: on-failure
+    # restart: on-failure
     environment:
       DATABASE_HOST: db
       DATABASE_USER: root
@@ -15,8 +15,14 @@ services:
       DATABASE_NAME: Student
     depends_on:
       - db
+    entrypoint: [ "./wait-for.sh", "db:3306", "--", "uvicorn", "index:app", "--reload", "--host", "0.0.0.0", "--port", "8000" ]
+    # command: "uvicorn index:app --reload --host 0.0.0.0 --port 8000"
+      # db:
+      #   condition: service_healthy
   db:
     image: mysql:5.7
+    volumes:
+      - ./my.cnf:/etc/mysql/my.cnf
     environment:
       MYSQL_USER: user
       MYSQL_ROOT_PASSWORD: 12345678
@@ -24,25 +30,7 @@ services:
       MYSQL_PASSWORD: 12345678
     ports:
       - "3307:3306"
-    # volumes:
-    #   - mysql_data:/var/lib/mysql
-
-# volumes:
-#   mysql_data:
-# # crates new network
-# # networks:
-# #   fastapi-app-network:
-# #     driver: bridge
-
-  # mysql:
-  #   image: mysql
-  #   restart: on-failure
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: "12345678"
-  #     MYSQL_DATABASE: Student
-  #     MYSQL_PASSWORD: "12345678"
-  #   ports:
-  #     - "3306:3306"
-  
-  #   networks:
-  #     - fastapi-app-network
+ 
+  # networks: 
+  #   fastapi-app-networks:
+  #     driver: bridge

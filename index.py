@@ -40,7 +40,8 @@ def createttable():
                 name VARCHAR(255) NOT NULL,
                 email VARCHAR(255) NOT NULL,
                 roll VARCHAR(255) NOT NULL,
-                class VARCHAR(255) NOT NULL
+                class VARCHAR(255) NOT NULL,
+                my_timestamp_cp
             )
         """)
 from pydantic import BaseModel
