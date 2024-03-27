@@ -23,7 +23,7 @@ def hello():
 #             except Exception as e:
 #                 raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 connection = mysql.connector.connect(
-        host=localhost,
+        host='db',
         # port="3306",?
         user="root",
         database="Student",
@@ -40,8 +40,7 @@ def createttable():
                 name VARCHAR(255) NOT NULL,
                 email VARCHAR(255) NOT NULL,
                 roll VARCHAR(255) NOT NULL,
-                class VARCHAR(255) NOT NULL,
-                my_timestamp_cp
+                class VARCHAR(255) NOT NULL
             )
         """)
 from pydantic import BaseModel
