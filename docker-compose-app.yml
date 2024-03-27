@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    # restart: on-failure
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USER: root
+      DATABASE_PASSWORD: 12345678
+      DATABASE_NAME: Student
+    # depends_on:
+    #   - db
+    networks:
+      - fastapi-app
+    # command: uvicorn index:app --reload --host 0.0.0.0 --port 8000
+    # entrypoint: [ "./wait-for.sh", "db:3306", "--", "uvicorn", "index:app", "--reload", "--host", "0.0.0.0", "--port", "8000" ]
+ 
+networks: 
+  fastapi-app:
+    name: fastapi-app
+    external: true 

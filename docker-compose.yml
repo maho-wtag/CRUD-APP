@@ -33,4 +33,4 @@ services:
  
   # networks: 
   #   fastapi-app-networks:
-  #     driver: bridge
+  #     driver: bridge 

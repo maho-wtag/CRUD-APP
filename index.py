@@ -23,7 +23,7 @@ def hello():
 #             except Exception as e:
 #                 raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 connection = mysql.connector.connect(
-        host='db',
+        host=localhost,
         # port="3306",?
         user="root",
         database="Student",

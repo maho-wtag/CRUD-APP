@@ -32,4 +32,4 @@ EXPOSE 8000
 #RUN python3 -m uvicorn main:app --reload
 # CMD [ "python", "-m", "uvicorn", "index:app", ,"--reload", "--host", "0.0.0.0", "--port", "8000"]
 RUN chmod +x wait-for.sh
-# CMD ["uvicorn", "index:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "index:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
