@@ -22,7 +22,7 @@ services:
   db:
     image: mysql:5.7
     volumes:
-      - ./my.cnf:/etc/mysql/my.cnf
+      - ${PWD}/db:/var/lib/mysql
     environment:
       MYSQL_USER: user
       MYSQL_ROOT_PASSWORD: 12345678
@@ -31,6 +31,3 @@ services:
     ports:
       - "3307:3306"
  
-  # networks: 
-  #   fastapi-app-networks:
-  #     driver: bridge 
